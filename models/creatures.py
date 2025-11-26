@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from items import Inventory
-import config
+from .. import config
 
 class Creature(ABC):
     def __init__(self, name, max_hp, damage):
@@ -10,11 +10,11 @@ class Creature(ABC):
         self.damage = damage
 
     @abstractmethod
-    def attack(self):
+    def attack(self, target):
         pass
 
     @abstractmethod
-    def take_damage(self):
+    def take_damage(self, damage):
         pass
 
     @property
@@ -34,7 +34,10 @@ class Creature(ABC):
             print("Invalid HP value")
 
     def __str__(self):
-        return f"{self.name.upper()}\nHP\t: ({self.health}/{self.max_hp})\nDamage\t: {self.damage}"
+        if self.health > 0:
+            return f"{self.name.upper()}\nHP\t: ({self.health}/{self.max_hp})\nDamage\t: {self.damage}"
+        else:
+            return f"{self.name} is DIE"
 
 class Player(Creature):
     def __init__(self, name):
@@ -46,11 +49,9 @@ class Player(Creature):
         target.take_damage(self.damage)
 
     def take_damage(self, damage):
-         if damage >= 0:
-            new_hp = self.health - damage
-
-            if new_hp < 0:
-                self.health = new_hp
+        if damage >= 0:
+            self.health = self.health - damage
+            if self.health == 0:
                 print(f"{self.name} is DIE")
             else:
                 print(f"{self.name} takes {damage} damage\nHP\t: ({self.health}/{self.max_hp})")
@@ -62,6 +63,9 @@ class Player(Creature):
     def view_item(self):
         self.inventory.list_item()
 
+    def __str__(self):
+        return super().__str__()
+
 class Monster(Creature):
     def __init__(self, name, max_hp, damage):
         super().__init__(name, max_hp, damage)
@@ -71,30 +75,27 @@ class Monster(Creature):
         target.take_damage(self.damage)
 
     def take_damage(self, damage):
-         if damage >= 0:
+        if damage >= 0:
             new_hp = self.health - damage
-
-            if new_hp < 0:
-                self.health = new_hp
-                print(f"{self.name} is DIE")
-            else:
-                print(f"{self.name} takes {damage} damage\nHP\t: ({self.health}/{self.max_hp})")
+            self.health = new_hp
+        else:
+            print(f"{self.name} takes {damage} damage\nHP\t: ({self.health}/{self.max_hp})")
     
     @classmethod
     def dragon(cls):
-        return cls(tuple(config.MONSTERS["DRAGON"].values()))
+        return cls(*list(config.MONSTERS["DRAGON"].values()))
 
     @classmethod
     def goblin(cls):
-        return cls(tuple(config.MONSTERS["GOBLIN"].values()))
+        return cls(*list(config.MONSTERS["GOBLIN"].values()))
 
     @classmethod
     def skeleton(cls):
-        return cls(tuple(config.MONSTERS["SKELETON"].values()))
+        return cls(*list(config.MONSTERS["SKELETON"].values()))
 
     @classmethod
     def minotaur(cls):
-        return cls(tuple(config.MONSTERS["MINOTAUR"].values()))
+        return cls(*list(config.MONSTERS["MINOTAUR"].values()))
 
 
 
