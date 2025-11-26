@@ -1,4 +1,4 @@
-class item:
+class Item:
     def __init__(self, name, description):
         self.name = name
         self.description = description
@@ -11,7 +11,7 @@ class Inventory:
         self.list = []
 
     def add_item(self, new_item):
-        if isinstance(new_item, item):
+        if isinstance(new_item, Item):
             self.list.append(new_item)
         else:
             print("New Item is not defined")
