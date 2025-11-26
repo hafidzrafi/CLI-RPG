@@ -1,5 +1,5 @@
 # Konstanta umum
-SAVE_FILE_NAME = "babad_save.json"
+SAVE_FILE_NAME = "data.json"
 INITIAL_ROOM_KEY = "cloud"
 
 # Data Player
