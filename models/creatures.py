@@ -10,11 +10,11 @@ class Creature(ABC):
         self.damage = damage
 
     @abstractmethod
-    def attack():
+    def attack(self):
         pass
 
     @abstractmethod
-    def defend():
+    def take_damage(self):
         pass
 
     @property
@@ -23,11 +23,13 @@ class Creature(ABC):
     
     @health.setter
     def health(self, new_hp):
-        if new_hp:
+        if new_hp is not None:
             if new_hp >= 0 and new_hp <= self.max_hp:
                 self.__hp = new_hp
+            elif new_hp < 0:
+                self.__hp = 0
             else:
-                print("Invalid HP value")
+                self.__hp = self.max_hp
         else:
             print("Invalid HP value")
 
@@ -41,9 +43,9 @@ class Player(Creature):
 
     def attack(self, target):
         print(f"{self.name} attacks {target} with {self.damage} damage")
-        target.defend(self.damage)
+        target.take_damage(self.damage)
 
-    def defend(self, damage):
+    def take_damage(self, damage):
          if damage >= 0:
             new_hp = self.health - damage
 
@@ -66,9 +68,9 @@ class Monster(Creature):
 
     def attack(self, target):
         print(f"{self.name} attacks {target} with {self.damage} damage")
-        target.defend(self.damage)
+        target.take_damage(self.damage)
 
-    def defend(self, damage):
+    def take_damage(self, damage):
          if damage >= 0:
             new_hp = self.health - damage
 
@@ -80,19 +82,19 @@ class Monster(Creature):
     
     @classmethod
     def dragon(cls):
-        return cls(tuple(config.MONSTERS["DRAGON"]))
+        return cls(tuple(config.MONSTERS["DRAGON"].values()))
 
     @classmethod
     def goblin(cls):
-        return cls(tuple(config.MONSTERS["GOBLIN"]))
+        return cls(tuple(config.MONSTERS["GOBLIN"].values()))
 
     @classmethod
     def skeleton(cls):
-        return cls(tuple(config.MONSTERS["SKELETON"]))
+        return cls(tuple(config.MONSTERS["SKELETON"].values()))
 
     @classmethod
     def minotaur(cls):
-        return cls(tuple(config.MONSTERS["MINOTAUR"]))
+        return cls(tuple(config.MONSTERS["MINOTAUR"].values()))
 
 
 
