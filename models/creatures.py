@@ -31,7 +31,7 @@ class Creature(ABC):
             else:
                 self.__hp = self.max_hp
         else:
-            print("Invalid HP value")
+            return False
 
     def __str__(self):
         if self.health > 0:
@@ -45,20 +45,20 @@ class Player(Creature):
         self.inventory = Inventory()
 
     def attack(self, target):
-        print(f"{self.name} attacks {target} with {self.damage} damage")
         target.take_damage(self.damage)
+        return f"{self.name} attacks {target} with {self.damage} damage"
 
     def take_damage(self, damage):
         if damage >= 0:
             self.health = self.health - damage
             if self.health == 0:
-                print(f"{self.name} is DIE")
+                return f"{self.name} is DIE"
             else:
-                print(f"{self.name} takes {damage} damage")
+                return f"{self.name} takes {damage} damage"
 
     def collect_item(self, item):
         self.inventory.add_item(item)
-        print("Item added to Inventory")
+        return True
     
     def view_item(self):
         self.inventory.list_item()
@@ -71,15 +71,16 @@ class Monster(Creature):
         super().__init__(name, max_hp, damage)
 
     def attack(self, target):
-        print(f"{self.name} attacks {target} with {self.damage} damage")
         target.take_damage(self.damage)
+        return f"{self.name} attacks {target} with {self.damage} damage"
 
     def take_damage(self, damage):
         if damage >= 0:
-            new_hp = self.health - damage
-            self.health = new_hp
-        else:
-            print(f"{self.name} takes {damage} damage\nHP\t: ({self.health}/{self.max_hp})")
+            self.health = self.health - damage
+            if self.health == 0:
+                return f"{self.name} is DIE"
+            else:
+                return f"{self.name} takes {damage} damage"
     
     @classmethod
     def dragon(cls):

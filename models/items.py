@@ -14,13 +14,12 @@ class Inventory:
         if isinstance(new_item, Item):
             self.list.append(new_item)
         else:
-            print("New Item is not defined")
+            return False
 
     def list_item(self):
         if self.list:
-            for i in self.list:
-                print(i)
+            return self.list
         else:
-            print("Inventory is empty")
+            return False
 
 # fire_sword = item("Fire Sword", "Heaven", "A Sword that can burn a city")
