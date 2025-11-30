@@ -25,7 +25,7 @@ class ConsoleView:
             time.sleep(speed)
         print()
     
-    def show_loading_screen(self):
+    def show_welcome_screen(self):
         self.clear_screen()
 
         print('\n'*20)
@@ -33,12 +33,29 @@ class ConsoleView:
         print()
         self.typing_slow('by   F I Z Z')
 
-        time.sleep(0.75)
+        time.sleep(1)
 
         print("\n"*15)
 
         text_enter = 'Press [ENTER] to Start....'
         input(' ' * self.padding_center(text_enter) + text_enter)
-        
+
+
+    def show_rules(self, rules):
         self.clear_screen()
 
+        print('\n'*8)
+        self.typing_slow("t h e   r u l e s\n".upper())
+        self.typing_slow("o f   t h e   w o r l d   o f   m u r i m".upper())
+        print('\n'*3)
+        
+        for index, rule in enumerate(rules):
+            print(" "*36, end="")
+            self.typing_slow(f"{index+1}. {rule}\n", 0.01, False)
+
+        time.sleep(1)
+        
+        print("\n"*9)
+
+        text_enter = 'Press [ENTER] to Next....'
+        input(' ' * self.padding_center(text_enter) + text_enter)
