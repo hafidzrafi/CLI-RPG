@@ -5,7 +5,7 @@ INITIAL_ROOM_KEY = "cloud"
 # Data Player
 PLAYER = {
     "FIGHTER"   : {
-        "HP"    :    200,
+        "HP"    : 200,
         "DAMAGE": 60
     },
     "ARCHER"    : {
