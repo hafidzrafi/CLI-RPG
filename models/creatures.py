@@ -63,6 +63,18 @@ class Player(Creature):
     def view_item(self):
         self.inventory.list_item()
 
+    @classmethod
+    def fighter(cls, name):
+        return cls(name, *list(config.PLAYER["FIGHTER"].values()))
+
+    @classmethod
+    def archer(cls, name):
+        return cls(name, *list(config.PLAYER["ARCHER"].values()))
+
+    @classmethod
+    def tank(cls, name):
+        return cls(name, *list(config.PLAYER["TANK"].values()))
+
     def __str__(self):
         return super().__str__()
 
@@ -97,6 +109,9 @@ class Monster(Creature):
     @classmethod
     def minotaur(cls):
         return cls(*list(config.MONSTERS["MINOTAUR"].values()))
+    
+    def __str__(self):
+        return super().__str__()
 
 
 
