@@ -4,17 +4,22 @@ INITIAL_ROOM_KEY = "cloud"
 
 # Data Player
 PLAYER = {
-    "MAX_HP"   : 5000,
-    "BASE_DAMAGE"   : 100
+    "FIGHTER" : {
+        "HP" : 200,
+        "DAMAGE" : 60
+    },
+    "ARCHER" : {
+        "HP" : 120,
+        "DAMAGE" : 100
+    },
+    "TANK" : {
+        "HP" : 500,
+        "DAMAGE" : 24
+    }
 }
 
 # Data Monsters
 MONSTERS = {
-    "DRAGON": {
-        "NAME" : "Dragon",
-        "HP"   : 9999,
-        "DAMAGE": 999
-    },
     "GOBLIN": {
         "NAME" : "Goblin",
         "HP"   : 200,
@@ -29,5 +34,10 @@ MONSTERS = {
         "NAME" : "Minotaur",
         "HP"   : 500,
         "DAMAGE": 300
+    },
+    "DRAGON": {
+        "NAME" : "Dragon",
+        "HP"   : 9999,
+        "DAMAGE": 999
     }
 }
