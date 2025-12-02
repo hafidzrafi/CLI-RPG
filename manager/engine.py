@@ -35,6 +35,7 @@ class GameEngine:
 
         self.view.show_rules(self.rules_game())
         self.view.show_start_screen(self.player_name)
+        self.view.show_current_room(self.world.starting_room)
 
         match self.player_role:
             case "fighter":
