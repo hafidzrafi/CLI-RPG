@@ -43,6 +43,19 @@ class ConsoleView:
         text_enter = 'Press [ENTER] to Start....'
         input(' ' * self.padding_center(text_enter) + text_enter)
 
+    def get_player_name(self):
+        self.clear_screen()
+
+        print('\n'*20)
+        self.typing_slow(self.space_text("enter your name").upper())
+        print('\n'*2)
+
+        player_name = input(' ' * self.padding_center("sora tansaro") + "")
+
+        print("\n"*13)
+
+        return player_name if player_name.strip() != "" else "Nameless Wanderer"
+
     def show_rules(self, rules):
         self.clear_screen()
 
