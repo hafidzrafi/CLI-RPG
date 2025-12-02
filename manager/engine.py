@@ -34,6 +34,7 @@ class GameEngine:
         print(self.player_role)
 
         self.view.show_rules(self.rules_game())
+        self.view.show_start_screen(self.player_name)
 
         match self.player_role:
             case "fighter":
