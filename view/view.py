@@ -164,9 +164,7 @@ class ConsoleView:
             "\n4. 'look' to see what's at this location"
         )
 
-    def get_player_command(self):
-        command = input("\n>>> ")
-        return command.strip().lower()
+    def get_player_command(self): return input("\n>>> ").strip().lower()
     
     def show_message(self, message):
         print(f"\n{message}")
