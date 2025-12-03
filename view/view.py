@@ -157,8 +157,13 @@ class ConsoleView:
         print('='* self.width_console)
 
     def show_game_screen(self, command, message, player):
+        self.clear_screen()
+        self.show_status_player(player)
 
-        print("\nNot sure what to do?\n'menu' to see what you can do")
+        print("\nNot sure what to do?  'menu' to see what you can do")
+        if message != '':
+            print(f"\n>>> {command}")
+            print(f"\n{message}")
 
     def show_menu(self):
         return (
