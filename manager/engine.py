@@ -1,5 +1,5 @@
 from view import ConsoleView
-from models import World
+from models import World, Room
 from models import Player
 from config import PLAYER
 
@@ -7,6 +7,8 @@ class GameEngine:
     def __init__(self):
         self.view = ConsoleView()
         self.world = World()
+        self.player = None
+        self.is_running = True
 
     def rules_game(self):
         rules = [
