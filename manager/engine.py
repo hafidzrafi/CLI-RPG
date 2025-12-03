@@ -47,6 +47,20 @@ class GameEngine:
             case "tank":
                 self.player = Player.tank(self.player_name)
 
+    def loop_game(self):
+        last_message = ''
+        command = ''
+
+        while self.is_running:
+            if command == 'exit':
+                break
+
+            self.view.show_game_screen(command, last_message, self.player)
+            command = self.view.get_player_command()
+            
+            last_message = self.process_command(command)
+
+
     def process_command(self, command):
         word = command.split()
         action = word[0]
