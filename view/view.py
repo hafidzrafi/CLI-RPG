@@ -168,3 +168,5 @@ class ConsoleView:
         command = input("\n>>> ")
         return command.strip().lower()
     
+    def show_message(self, message):
+        print(f"\n{message}")
