@@ -132,3 +132,14 @@ class ConsoleView:
         text_enter = 'Press [ENTER] to Start....'
         input(' ' * self.padding_center(text_enter) + text_enter)
 
+    def show_inventory(self, inventory):
+        items = []
+
+        if not inventory.list_item():
+            return "Empty"
+        
+        for item in inventory.list_item():
+            items.append(item.name.upper())
+
+        return items
+
