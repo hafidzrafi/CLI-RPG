@@ -17,9 +17,6 @@ class Inventory:
             return False
 
     def list_item(self):
-        if self.item_list:
-            return self.item_list
-        else:
-            return False
+        return self.item_list
 
 # fire_sword = item("Fire Sword", "Heaven", "A Sword that can burn a city")
