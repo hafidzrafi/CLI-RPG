@@ -144,15 +144,19 @@ class ConsoleView:
         return items
 
     def show_status_player(self, player):
-        print('-'* 20)
-        print(" " * self.padding_center("PLAYER STATUS") + "PLAYER STATUS")
+        print('='* self.width_console)
+        print(" " * self.padding_center("STATUS") + "STATUS")
+        print('='* self.width_console)
+
         print(player)
 
         print(f"\nLocation\t: {player.current_room.name}")
         print(f"\nInventory\t: {self.show_inventory(player.inventory)}")
         print()
 
-        print('-'* 20)
+        print('='* self.width_console)
+
+    def show_game_screen(self, command, message, player):
 
         print("\nNot sure what to do?\n'menu' to see what you can do")
 
