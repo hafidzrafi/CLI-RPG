@@ -71,6 +71,7 @@ class GameEngine:
 
     def start_game(self):
         self.world.generate_world()
+        self.populate_world()
 
         self.view.show_welcome_screen()
 
