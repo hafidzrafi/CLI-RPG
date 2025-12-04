@@ -8,15 +8,12 @@ class Item:
 
 class Inventory:
     def __init__(self):
-        self.item_list = []
+        self.__item_list = []
 
-    def add_item(self, new_item):
+    def collect_item(self, new_item):
         if isinstance(new_item, Item):
-            self.item_list.append(new_item)
+            self.__item_list.append(new_item)
         else:
             return False
 
-    def list_item(self):
-        return self.item_list
-
-# fire_sword = item("Fire Sword", "Heaven", "A Sword that can burn a city")
+    def list_item(self): return self.__item_list
