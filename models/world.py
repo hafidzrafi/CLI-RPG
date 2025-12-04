@@ -5,9 +5,20 @@ class Room:
         self.items = []
         self.monsters = []
         self.exits = {}
+        self.locked_exit = {}
+
+    def add_item(self, item):
+        self.items.append(item)
+
+    def add_monster(self, monster):
+        self.monsters.append(monster)
 
     def connects(self, direction, next_room):
         self.exits[direction] = next_room
+
+    def locked_connects(self, direction, key_name):
+        if direction in self.exits:
+            self.locked_exit[direction] = key_name
 
 class World:
     def __init__(self):
