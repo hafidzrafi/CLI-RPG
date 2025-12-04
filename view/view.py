@@ -7,16 +7,13 @@ class ConsoleView:
     def __init__(self):
         self.width_console = shutil.get_terminal_size().columns
         
-    def clear_screen(self):
-        os.system("cls" if os.name == "nt" else "clear")
+    def clear_screen(self): os.system("cls" if os.name == "nt" else "clear")
 
-    def padding_center(self, text):
-        padding = (self.width_console - len(text)) / 2
-        return int(padding)
+    def padding_center(self, text): return int((self.width_console - len(text)) / 2)
     
     def space_text(self, text): return " ".join(text)
 
-    def typing_slow(self, text, speed=0.05, center=True):
+    def typing_slow(self, text, speed=0.03, center=True):
         if center:
             sys.stdout.write(" " * self.padding_center(text))
 
@@ -25,6 +22,12 @@ class ConsoleView:
             sys.stdout.flush()
             time.sleep(speed)
         print()
+
+    def wait_for_enter(self, text_enter, enter_baris, time_sleep=1):
+        time.sleep(time_sleep)
+
+        print("\n"*enter_baris)
+        input(' ' * self.padding_center(text_enter) + text_enter)
     
     def show_welcome_screen(self):
         self.clear_screen()
@@ -36,12 +39,8 @@ class ConsoleView:
         print('\n')
         self.typing_slow('by  Fizz')
 
-        time.sleep(1)
-
-        print("\n"*14)
-
         text_enter = 'Press [ENTER] to Start....'
-        input(' ' * self.padding_center(text_enter) + text_enter)
+        self.wait_for_enter(text_enter, 14)
 
     def get_player_name(self):
         self.clear_screen()
@@ -57,30 +56,28 @@ class ConsoleView:
         return player_name if player_name.strip() != "" else "Nameless Wanderer"
 
     def get_player_role(self, roles):
-        self.clear_screen()
-
-        print('\n'*15)
-        self.typing_slow(self.space_text("choose your destiny").upper())
-        print('\n'*2)
-
-        for role in roles:
-            self.typing_slow(f">>>           {self.space_text(role)}           <<<".upper(), 0.01)
-            print('\n')
-
-        print("\n"*2)
-        print(" " * self.padding_center("( 1 - 3 )") + "( 1 - 3 )\n")
-
-        time.sleep(1)
-
-        role = input(" " * self.padding_center(" ") + "")
-
+        role = ""
+        
         while(True):
             if role.strip() in ['1', '2', '3']:
                 return list(roles)[(int(role)) - 1].lower()
             else:
-                print()
+                self.clear_screen()
+
+                print('\n'*15)
+                self.typing_slow(self.space_text("choose your destiny").upper())
+                print('\n'*2)
+
+                for role in roles:
+                    self.typing_slow(f">>>           {self.space_text(role)}           <<<".upper(), 0.01)
+                    print('\n')
+
+                print("\n"*2)
                 print(" " * self.padding_center("( 1 - 3 )") + "( 1 - 3 )\n")
-                role = input(' ' * self.padding_center(" ") + "")
+
+                time.sleep(1)
+
+                role = input(" " * self.padding_center(" ") + "")
 
     def show_rules(self, rules):
         self.clear_screen()
@@ -95,12 +92,8 @@ class ConsoleView:
             print(" "*36, end="")
             self.typing_slow(f"{index+1}. {rule}\n", 0.01, False)
 
-        time.sleep(1)
-        
-        print("\n"*9)
-
         text_enter = 'Press [ENTER] to Next....'
-        input(' ' * self.padding_center(text_enter) + text_enter)
+        self.wait_for_enter(text_enter, 9)
                 
     def show_start_screen(self, name):
         self.clear_screen()
@@ -110,12 +103,8 @@ class ConsoleView:
         print()
         self.typing_slow(self.space_text("your journey starts here").upper())
 
-        time.sleep(1)
-
-        print("\n"*15)
-
         text_enter = 'Press [ENTER] to Start....'
-        input(' ' * self.padding_center(text_enter) + text_enter)
+        self.wait_for_enter(text_enter, 15)
 
     def show_current_room(self, room):
         self.clear_screen()
@@ -127,10 +116,8 @@ class ConsoleView:
         print()
         self.typing_slow(self.space_text(f"{room.description}").upper())
 
-        print("\n"*15)
-
         text_enter = 'Press [ENTER] to Start....'
-        input(' ' * self.padding_center(text_enter) + text_enter)
+        self.wait_for_enter(text_enter, 15)
 
     def show_inventory(self, inventory):
         items = []
@@ -192,10 +179,6 @@ class ConsoleView:
         print()
         self.typing_slow(self.space_text("you have left the murim world").upper())
 
-        time.sleep(1)
-
-        print("\n"*15)
-
         text_enter = 'Press [ENTER] to Start....'
-        input(' ' * self.padding_center(text_enter) + text_enter)
+        self.wait_for_enter(text_enter, 15)
 
