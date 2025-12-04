@@ -65,16 +65,13 @@ class Player(Creature):
         self.inventory.list_item()
 
     @classmethod
-    def fighter(cls, name):
-        return cls(name, *list(config.PLAYER["FIGHTER"].values()))
+    def fighter(cls, name): return cls(name, *list(config.PLAYER["FIGHTER"].values()))
 
     @classmethod
-    def archer(cls, name):
-        return cls(name, *list(config.PLAYER["ARCHER"].values()))
+    def archer(cls, name) : return cls(name, *list(config.PLAYER["ARCHER"].values()))
 
     @classmethod
-    def tank(cls, name):
-        return cls(name, *list(config.PLAYER["TANK"].values()))
+    def tank(cls, name)   : return cls(name, *list(config.PLAYER["TANK"].values()))
 
     def __str__(self):
         return super().__str__()
@@ -96,20 +93,16 @@ class Monster(Creature):
                 return f"{self.name} takes {damage} damage"
     
     @classmethod
-    def dragon(cls):
-        return cls(*list(config.MONSTERS["DRAGON"].values()))
+    def dragon(cls)   : return cls(*list(config.MONSTERS["DRAGON"].values()))
 
     @classmethod
-    def goblin(cls):
-        return cls(*list(config.MONSTERS["GOBLIN"].values()))
+    def goblin(cls)   : return cls(*list(config.MONSTERS["GOBLIN"].values()))
 
     @classmethod
-    def skeleton(cls):
-        return cls(*list(config.MONSTERS["SKELETON"].values()))
+    def skeleton(cls) : return cls(*list(config.MONSTERS["SKELETON"].values()))
 
     @classmethod
-    def minotaur(cls):
-        return cls(*list(config.MONSTERS["MINOTAUR"].values()))
+    def minotaur(cls) : return cls(*list(config.MONSTERS["MINOTAUR"].values()))
     
     def __str__(self):
         return super().__str__()
