@@ -58,8 +58,11 @@ class Player(Creature):
                 return f"{self.name} takes {damage} damage"
 
     def collect_item(self, item):
-        self.inventory.add_item(item)
-        return True
+        self.inventory.collect_item(item)
+
+    def remove_item(self, item):
+        item_list = self.inventory.list_item()
+        item_list.remove(item)
     
     def view_item(self):
         self.inventory.list_item()
