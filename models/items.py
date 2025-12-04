@@ -3,8 +3,9 @@ class Item:
         self.name = name
         self.description = description
 
-    def __str__(self):
-        return f"{(self.name).upper()}\nDeskription\t: {self.description}"
+    def __str__(self) : return f"Name\t\t: {(self.name)}\nDescription\t: {self.description}\n"
+    
+    def __repr__(self): return f"{self.name}"
 
 class Inventory:
     def __init__(self):
