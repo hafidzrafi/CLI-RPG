@@ -160,3 +160,17 @@ class GameEngine:
         return "item not found"
      
     def locked_room(self, direction):
+        current_room = self.player.current_room
+        inventory = self.player.inventory
+
+        if direction in current_room.locked_exit:
+            key_name = current_room.locked_exit[direction]
+
+            for item in inventory.list_item():
+                if key_name == item.name:
+                    self.player.remove_item(item)
+                    del current_room.locked_exit[direction]
+
+                    return True, item
+            return False, None
+        return None, None
