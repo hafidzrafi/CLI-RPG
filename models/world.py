@@ -23,9 +23,12 @@ class Room:
         if direction in self.exits:
             self.locked_exit[direction] = key_name
 
-    def __str__(self) : return f"{self.name}"
+    def __str__(self):
+        return f"{self.name}"
 
-    def __repr__(self): return self.__str__()
+    def __repr__(self):
+        return self.__str__()
+
 
 class World:
     def __init__(self):
