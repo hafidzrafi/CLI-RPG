@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from .items import Inventory
 import config
 
+
 class Creature(ABC):
     def __init__(self, name, max_hp, damage):
         self.name = name
@@ -20,7 +21,7 @@ class Creature(ABC):
     @property
     def health(self):
         return self.__hp
-    
+
     @health.setter
     def health(self, new_hp):
         if new_hp is not None:
@@ -39,6 +40,7 @@ class Creature(ABC):
         else:
             return f"{self.name} is DEAD"
 
+
 class Player(Creature):
     def __init__(self, name, max_hp, damage):
         super().__init__(name, max_hp, damage)
@@ -46,16 +48,15 @@ class Player(Creature):
         self.current_room = None
 
     def attack(self, target):
-        target.take_damage(self.damage)
-        return f"{self.name} attacks {target} with {self.damage} damage"
+        return target.take_damage(self.damage, self.name)
 
-    def take_damage(self, damage):
+    def take_damage(self, damage, target):
         if damage >= 0:
             self.health = self.health - damage
             if self.health == 0:
                 return f"{self.name} is DEAD"
             else:
-                return f"{self.name} takes {damage} damage"
+                return f"{self.name} attacks {target} with {self.damage} damage"
 
     def collect_item(self, item):
         self.inventory.collect_item(item)
@@ -63,55 +64,59 @@ class Player(Creature):
     def remove_item(self, item):
         item_list = self.inventory.list_item()
         item_list.remove(item)
-    
+
     def view_item(self):
         self.inventory.list_item()
 
     @classmethod
-    def fighter(cls, name): return cls(name, *list(config.PLAYER["FIGHTER"].values()))
+    def fighter(cls, name):
+        return cls(name, *list(config.PLAYER["FIGHTER"].values()))
 
     @classmethod
-    def archer(cls, name) : return cls(name, *list(config.PLAYER["ARCHER"].values()))
+    def archer(cls, name):
+        return cls(name, *list(config.PLAYER["ARCHER"].values()))
 
     @classmethod
-    def tank(cls, name)   : return cls(name, *list(config.PLAYER["TANK"].values()))
+    def tank(cls, name):
+        return cls(name, *list(config.PLAYER["TANK"].values()))
 
     def __str__(self):
         return super().__str__()
+
 
 class Monster(Creature):
     def __init__(self, name, max_hp, damage):
         super().__init__(name, max_hp, damage)
 
     def attack(self, target):
-        target.take_damage(self.damage)
-        return f"{self.name} attacks {target} with {self.damage} damage"
+        return target.take_damage(self.damage, self.name)
 
-    def take_damage(self, damage):
+    def take_damage(self, damage, target):
         if damage >= 0:
             self.health = self.health - damage
             if self.health == 0:
                 return f"{self.name} is DEAD"
             else:
-                return f"{self.name} takes {damage} damage"
-    
-    @classmethod
-    def dragon(cls)   : return cls(*list(config.MONSTERS["DRAGON"].values()))
+                return f"{self.name} attacks {target} with {self.damage} damage"
 
     @classmethod
-    def goblin(cls)   : return cls(*list(config.MONSTERS["GOBLIN"].values()))
+    def dragon(cls):
+        return cls(*list(config.MONSTERS["DRAGON"].values()))
 
     @classmethod
-    def skeleton(cls) : return cls(*list(config.MONSTERS["SKELETON"].values()))
+    def goblin(cls):
+        return cls(*list(config.MONSTERS["GOBLIN"].values()))
 
     @classmethod
-    def minotaur(cls) : return cls(*list(config.MONSTERS["MINOTAUR"].values()))
-    
+    def skeleton(cls):
+        return cls(*list(config.MONSTERS["SKELETON"].values()))
+
+    @classmethod
+    def minotaur(cls):
+        return cls(*list(config.MONSTERS["MINOTAUR"].values()))
+
     def __str__(self):
         return super().__str__()
 
     def __repr__(self):
         return f"{self.name}"
-
-
-
