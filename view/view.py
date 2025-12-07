@@ -237,5 +237,26 @@ class ConsoleView:
             print()
             self.typing_slow(message, 0.01)
 
+    def show_defeat_screen(self, name):
+        self.clear_screen()
+
+        print("\n" * 20)
+        self.typing_slow(self.space_text(name).upper())
+        print()
+        self.typing_slow(self.space_text("you have been slain").upper())
+
+        text_enter = "Press [ENTER] to Start...."
         self.wait_for_enter(text_enter, 15)
 
+    def show_victory_screen(self, name, monster):
+        self.clear_screen()
+
+        print("\n" * 20)
+        self.typing_slow(self.space_text(name).upper())
+        print()
+        self.typing_slow(
+            self.space_text(f"you successfully defeated the {monster.name}").upper()
+        )
+
+        text_enter = "Press [ENTER] to Start...."
+        self.wait_for_enter(text_enter, 15)
