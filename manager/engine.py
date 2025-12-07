@@ -164,24 +164,39 @@ class GameEngine:
 
     def move_player(self, direction):
         current_room = self.player.current_room
+        previous_room = current_room
+        message = ""
 
         if direction in current_room.exits:
             next_room = current_room.exits[direction]
 
-            opened, item = self.locked_room(direction)
+            opened = self.locked_room(direction)
 
-            if opened is True:
-                self.player.current_room = next_room
-                self.view.show_current_room(next_room)
-                return f"you successfully opened location of {next_room.name} using {item.name}"
-
-            elif opened is False:
+            if opened is False:
                 return "this location is still locked"
 
+            self.player.current_room = next_room
+            self.view.show_current_room(next_room)
+
+            if next_room.monsters:
+                fight = self.start_fight()
+
+            if fight == "flee":
+                self.player.current_room = previous_room
+                self.view.show_current_room(previous_room)
+                return f"you returned to {previous_room.name}"
+
+            elif fight == "victory":
+                message = " and defeated the monster"
+
+            elif fight == "defeat":
+                return "defeat"
+
+            if opened is True:
+                return f"you successfully opened location of {next_room.name}{message}"
+
             elif opened is None:
-                self.player.current_room = next_room
-                self.view.show_current_room(next_room)
-                return f"you have moved to {next_room.name}"
+                return f"you have moved to {next_room.name}{message}"
 
         else:
             return "you can't go that away"
@@ -209,6 +224,61 @@ class GameEngine:
                     self.player.remove_item(item)
                     del current_room.locked_exit[direction]
 
-                    return True, item
-            return False, None
-        return None, None
+                    return True
+            return False
+        return None
+
+    def start_fight(self):
+        current_room = self.player.current_room
+        monster = current_room.monsters[0]
+
+        self.view.show_monster(monster)
+
+        while True:
+            self.view.show_combat_screen(self.player, monster)
+            question = "[fight/flee]: "
+            command = self.view.get_player_command(question)
+
+            if command == "fight":
+                return self.loop_fight(monster)
+            elif command == "flee":
+                return "flee"
+
+    def loop_fight(self, monster):
+        import time
+
+        is_fighting = True
+        player = self.player
+
+        while is_fighting:
+            message = player.attack(monster)
+            damage_player = f"(-{player.damage})"
+            self.view.show_combat_screen(player, monster, message, damage_player)
+
+            if monster.health <= 0:
+                self.view.show_victory_screen(self.player_name, monster)
+                return "victory"
+
+            if player.health < player.max_hp * (20 / 100):
+                while True:
+                    self.view.show_message("your health power is less than 20%")
+                    question = "[fight/flee]: "
+                    command = self.view.get_player_command(question)
+                    if command == "flee":
+                        return "flee"
+                    elif command != "fight":
+                        continue
+            else:
+                time.sleep(2)
+
+            message = monster.attack(player)
+            damage_monster = f"(-{monster.damage})"
+            self.view.show_combat_screen(
+                player, monster, message, damage_monster=damage_monster
+            )
+
+            time.sleep(2)
+
+            if player.health <= 0:
+                self.view.show_defeat_screen(self.player_name)
+                return "defeat"
