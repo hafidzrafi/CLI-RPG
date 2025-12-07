@@ -228,5 +228,14 @@ class ConsoleView:
         print()
         print("=" * self.width_console)
 
+    def show_combat_screen(
+        self, player, monster, message="", damage_player="", damage_monster=""
+    ):
+        self.show_status_combat(player, monster, damage_player, damage_monster)
+
+        if damage_monster or damage_player != "":
+            print()
+            self.typing_slow(message, 0.01)
+
         self.wait_for_enter(text_enter, 15)
 
