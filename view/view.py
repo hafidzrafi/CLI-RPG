@@ -188,6 +188,9 @@ class ConsoleView:
         print()
         self.typing_slow(self.space_text("you have left the murim world").upper())
 
+        text_enter = "Press [ENTER] to Start...."
+        self.wait_for_enter(text_enter, 15)
+
     def show_monster(self, monster):
         self.clear_screen()
 
