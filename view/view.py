@@ -85,7 +85,7 @@ class ConsoleView:
                 print("\n" * 2)
                 print(" " * self.padding_center("( 1 - 3 )") + "( 1 - 3 )\n")
 
-                time.sleep(1)
+                self.wait(1)
 
                 role = input(" " * self.padding_center(" ") + "")
 
@@ -208,7 +208,7 @@ class ConsoleView:
 
         print("\n" * 20)
         self.typing_slow(self.space_text(f"a wild {monster.name} appears!").upper())
-        time.sleep(1)
+        self.wait(1)
 
         text_enter = "Press [ENTER] to Start...."
         self.wait_for_enter(text_enter, 17)
