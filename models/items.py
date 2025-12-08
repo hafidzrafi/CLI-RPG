@@ -17,8 +17,6 @@ class Inventory:
     def collect_item(self, new_item):
         if isinstance(new_item, Item):
             self.__item_list.append(new_item)
-        else:
-            return False
 
     def list_item(self):
         return self.__item_list
