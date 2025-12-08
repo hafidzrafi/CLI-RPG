@@ -114,33 +114,49 @@ class GameEngine:
             last_message = self.process_command(command)
 
     def process_command(self, command):
-        word = command.split()
-        action = word[0]
+        try:
+            word = command.split()
+            action = word[0]
 
-        if action == "menu":
-            return self.view.show_menu()
+            if action == "menu":
+                return self.view.show_menu()
 
-        elif action == "go":
-            return (
-                "go where? (north, south, east, west)"
-                if len(command) <= 2
-                else self.move_player(word[1])
-            )
+            elif action == "go":
+                return (
+                    "go where? (north, south, east, west)"
+                    if len(command) <= 2
+                    else self.move_player(word[1])
+                )
 
-        elif action == "use":
-            if len(command) <= 3:
-                return "use what? (potion)"
+            elif action == "take":
+                return (
+                    "take what? (item name)"
+                    if len(command) <= 4
+                    else self.take_item(" ".join(word[1:]))
+                )
+            
+            elif action == "use":
+                if len(command) <= 3:
+                    return "use what? (potion)"
 
-            if word[1] == "potion":
-                heal = self.heal_player()
+                elif word[1] == "potion":
+                    heal = self.heal_player()
 
-                return "you have used a potion and your health has been fully restored" if heal else "you don't have a potion"
+                    return "you have used a potion and your health has been fully restored" if heal else "you don't have a potion"
 
+            elif action == "look":
+                return self.view.show_around(self.player.current_room)
 
-        elif action == "exit":
-            return self.view.show_exit_screen(self.player_name)
+            elif action == "inventory":
+                return self.view.show_inventory(self.player.inventory, False)
 
-        else:
+            elif action == "exit":
+                return self.view.show_exit_screen(self.player_name)
+
+            else:
+                return "unknown command"
+        
+        except IndexError:
             return "unknown command"
 
     def move_player(self, direction):
