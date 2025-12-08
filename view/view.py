@@ -17,6 +17,9 @@ class ConsoleView:
     def space_text(self, text):
         return " ".join(text)
 
+    def wait(self, time_sleep=1):
+        time.sleep(time_sleep)
+
     def typing_slow(self, text, speed=0.03, center=True):
         if center:
             sys.stdout.write(" " * self.padding_center(text))
@@ -24,13 +27,13 @@ class ConsoleView:
         for char in text:
             sys.stdout.write(char)
             sys.stdout.flush()
-            time.sleep(speed)
+            self.wait(speed)
         print()
 
-    def wait_for_enter(self, text_enter, enter_baris, time_sleep=1):
-        time.sleep(time_sleep)
+    def wait_for_enter(self, text_enter, enter_line, time_sleep=1):
+        self.wait(time_sleep)
 
-        print("\n" * enter_baris)
+        print("\n" * enter_line)
         input(" " * self.padding_center(text_enter) + text_enter)
 
     def show_welcome_screen(self):
