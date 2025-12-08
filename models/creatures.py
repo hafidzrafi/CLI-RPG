@@ -58,6 +58,16 @@ class Player(Creature):
             if self.health == 0:
                 return f"{self.name} is DEAD"
             else:
+
+    def level_up(self, monster):
+        gift_health = config.MONSTERS[monster.name.upper()]["GIFT_HEALTH"]
+        gift_damage = config.MONSTERS[monster.name.upper()]["GIFT_DAMAGE"]
+
+        self.max_hp += gift_health
+        self.damage += gift_damage
+
+        return gift_health, gift_damage
+
     def heal_creature(self, amount):
         if amount:
             self.health += amount
