@@ -15,6 +15,8 @@ class Creature(ABC):
         pass
 
     @abstractmethod
+    def take_damage(self, damage, target):
+        pass
 
     @abstractmethod
     def heal_creature(self, amount):
@@ -56,8 +58,15 @@ class Player(Creature):
         if damage >= 0:
             self.health = self.health - damage
             if self.health == 0:
-                return f"{self.name} is DEAD"
+                return (
+                    f"[{target}] attacks [{self.name}] with {damage} damage, [{self.name}] is DEAD",
+                    f"(-{damage})",
+                )
             else:
+                return (
+                    f"[{target}] attacks [{self.name}] with {damage} damage",
+                    f"(-{damage})",
+                )
 
     def level_up(self, monster):
         gift_health = config.MONSTERS[monster.name.upper()]["GIFT_HEALTH"]
@@ -134,8 +143,15 @@ class Monster(Creature):
         if damage >= 0:
             self.health = self.health - damage
             if self.health == 0:
-                return f"{self.name} is DEAD"
+                return (
+                    f"[{target}] attacks [{self.name}] with {damage} damage, [{self.name}] is DEAD",
+                    f"(-{damage})",
+                )
             else:
+                return (
+                    f"[{target}] attacks [{self.name}] with {damage} damage",
+                    f"(-{damage})",
+                )
 
     def heal_creature(self, amount):
         if amount:
