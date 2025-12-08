@@ -231,18 +231,23 @@ class GameEngine:
                 return "flee"
 
     def loop_fight(self, monster):
-        import time
-
         is_fighting = True
         player = self.player
+        current_room = self.player.current_room
 
         while is_fighting:
-            message = player.attack(monster)
-            damage_player = f"(-{player.damage})"
-            self.view.show_combat_screen(player, monster, message, damage_player)
+            message, message_status = player.attack(monster)
+            
+            self.view.show_combat_screen(player, monster, "player", message, message_status)
+
+            self.view.wait(2)
 
             if monster.health <= 0:
-                self.view.show_victory_screen(self.player_name, monster)
+                if monster.name == "DRAGON":
+                    return "end"
+                gift_health, gift_damage = self.gift_monster(monster)
+                self.view.show_victory_screen(self.player_name, monster, gift_health, gift_damage)
+                del current_room.monsters[0]
                 return "victory"
 
             if player.health < player.max_hp * (20 / 100):
@@ -254,17 +259,17 @@ class GameEngine:
                         return "flee"
                     elif command != "fight":
                         continue
-            else:
-                time.sleep(2)
 
-            message = monster.attack(player)
-            damage_monster = f"(-{monster.damage})"
-            self.view.show_combat_screen(
-                player, monster, message, damage_monster=damage_monster
-            )
+            message, message_status = monster.act(player)
+            self.view.show_combat_screen(player, monster, "monster", message, message_status)
 
-            time.sleep(2)
+            self.view.wait(2)
 
             if player.health <= 0:
                 self.view.show_defeat_screen(self.player_name)
                 return "defeat"
+            
+    def gift_monster(self, monster):
+        gift_health, gift_damage = self.player.level_up(monster)
+
+        return gift_health, gift_damage
