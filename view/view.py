@@ -188,7 +188,6 @@ class ConsoleView:
         return (
             f"this is {room.name}, {room.description}"
             f"\n\n[items   ] : {room.items}"
-            f"\n[monsters] : {room.monsters}"
             f"\n[exits   ] : [{" ,".join(list(room.exits.keys()))}]"
         )
 
