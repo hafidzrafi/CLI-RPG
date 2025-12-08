@@ -141,7 +141,7 @@ class ConsoleView:
 
             return items
         else:
-            return "\n".join(str(item) for item in inventory.list_item())
+            return "\n\n".join(str(item) for item in inventory.list_item())
 
     def show_status_player(self, player):
         print("=" * self.width_console)
@@ -170,6 +170,7 @@ class ConsoleView:
             "COMMANDS:\n"
             "- go [direction]  : Move (north, south, east, west)\n"
             "- take [item name]: Pick up an item\n"
+            "- use potion      : Use a potion and heal yourself\n"
             "- look            : Inspect the room\n"
             "- inventory       : Check bag\n"
             "- save            : Save game\n"
