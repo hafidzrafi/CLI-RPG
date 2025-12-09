@@ -18,8 +18,7 @@ class GameEngine:
             "NAVIGATION\t: Use cardinal directions (NORTH, SOUTH, EAST, WEST) to move between locations.",
             "STATE CHANGE\t: Encountering a monster immediately initiates COMBAT mode.",
             "DEFEAT\t\t: Health (HP) reaching 0 or less results in permanent defeat.",
-            "PERSISTENCE\t: Use 'SAVE' to engrave your progress to disk at any time.",
-            "EXIT\t\t: Use 'EXIT' to stop the game.",
+            "EXIT\t\t: Use 'EXIT' to stop the game and engrave your progress to disk at any time.",
         ]
         return rules
  
