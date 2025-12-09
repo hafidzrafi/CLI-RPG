@@ -29,6 +29,15 @@ class Room:
     def __repr__(self):
         return self.__str__()
 
+    def to_dict(self):
+        return {
+            "name" : self.name,
+            "description" : self.description,
+            "items" : [item.to_dict() for item in self.items],
+            "monsters" : [monster.to_dict() for monster in self.monsters],
+            "locked_exit" : self.locked_exit,
+        }
+
 
 class World:
     def __init__(self):
