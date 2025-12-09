@@ -313,3 +313,15 @@ class ConsoleView:
 
         text_enter = "Press [ENTER] to Start...."
         self.wait_for_enter(text_enter, 13)
+        
+    def show_load_screen(self, name):
+        self.clear_screen()
+        
+        print("\n" * 20)
+        self.typing_slow(self.space_text(name).upper())
+        print()
+        self.typing_slow(self.space_text("welcome back in the world of murim").upper())
+
+        text_enter = "Press [ENTER] to Start...."
+        self.wait_for_enter(text_enter, 15)
+        
