@@ -31,11 +31,11 @@ class Room:
 
     def to_dict(self):
         return {
-            "name" : self.name,
-            "description" : self.description,
-            "items" : [item.to_dict() for item in self.items],
-            "monsters" : [monster.to_dict() for monster in self.monsters],
-            "locked_exit" : self.locked_exit,
+            "name": self.name,
+            "description": self.description,
+            "items": [item.to_dict() for item in self.items],
+            "monsters": [monster.to_dict() for monster in self.monsters],
+            "locked_exit": self.locked_exit,
         }
 
 

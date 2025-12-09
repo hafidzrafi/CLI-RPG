@@ -21,7 +21,7 @@ class GameEngine:
             "EXIT\t\t: Use 'EXIT' to stop the game and engrave your progress to disk at any time.",
         ]
         return rules
- 
+
     def roles(self):
         role = PLAYER.keys()
         return role
@@ -112,11 +112,11 @@ class GameEngine:
 
             if command == "exit":
                 self.is_running = False
-                
+
             elif last_message == "defeat":
                 os.remove(DB_NAME)
                 self.is_running = False
-                
+
             elif last_message == "end":
                 self.view.show_end_game(self.player.name)
                 self.is_running = False
@@ -142,7 +142,7 @@ class GameEngine:
                     if len(command) <= 4
                     else self.take_item(" ".join(word[1:]))
                 )
-            
+
             elif action == "use":
                 if len(command) <= 3:
                     return "use what? (potion)"
@@ -150,7 +150,11 @@ class GameEngine:
                 elif word[1] == "potion":
                     heal = self.heal_player()
 
-                    return "you have used a potion and your health has been fully restored" if heal else "you don't have a potion"
+                    return (
+                        "you have used a potion and your health has been fully restored"
+                        if heal
+                        else "you don't have a potion"
+                    )
 
             elif action == "look":
                 return self.view.show_around(self.player.current_room)
@@ -164,7 +168,7 @@ class GameEngine:
 
             else:
                 return "unknown command"
-        
+
         except IndexError:
             return "unknown command"
 
@@ -197,7 +201,7 @@ class GameEngine:
 
                 elif fight == "defeat":
                     return "defeat"
-                
+
                 elif fight == "end":
                     return "end"
 
@@ -269,8 +273,10 @@ class GameEngine:
 
         while is_fighting:
             message, message_status = player.attack(monster)
-            
-            self.view.show_combat_screen(player, monster, "player", message, message_status)
+
+            self.view.show_combat_screen(
+                player, monster, "player", message, message_status
+            )
 
             self.view.wait(2)
 
@@ -278,7 +284,9 @@ class GameEngine:
                 if monster.name == "DRAGON":
                     return "end"
                 gift_health, gift_damage = self.gift_monster(monster)
-                self.view.show_victory_screen(self.player.name, monster, gift_health, gift_damage)
+                self.view.show_victory_screen(
+                    self.player.name, monster, gift_health, gift_damage
+                )
                 del current_room.monsters[0]
                 return "victory"
 
@@ -293,24 +301,23 @@ class GameEngine:
                         continue
 
             message, message_status = monster.act(player)
-            self.view.show_combat_screen(player, monster, "monster", message, message_status)
+            self.view.show_combat_screen(
+                player, monster, "monster", message, message_status
+            )
 
             self.view.wait(2)
 
             if player.health <= 0:
                 self.view.show_defeat_screen(self.player.name)
                 return "defeat"
-            
+
     def gift_monster(self, monster):
         gift_health, gift_damage = self.player.level_up(monster)
 
         return gift_health, gift_damage
 
     def save_game(self):
-        data = {
-            "player" : self.player.to_dict(),
-            "world_rooms" : {}
-        }
+        data = {"player": self.player.to_dict(), "world_rooms": {}}
 
         for key, room in self.world.rooms.items():
             data["world_rooms"][key] = room.to_dict()
@@ -326,22 +333,22 @@ class GameEngine:
         try:
             with open(DB_NAME, "r") as file:
                 data = json.load(file)
-                
+
                 player = data["player"]
                 self.player = Player(*list(player.values())[:3])
                 self.player.health = player["health"]
-                
+
                 self.world.generate_world()
-                
+
                 for room in self.world.rooms.values():
                     if room.name == player["room"]:
                         self.player.current_room = room
                         break
-                        
+
                 for data_item in player["inventory"]:
                     item = Item(*list(data_item.values()))
                     self.player.inventory.collect_item(item)
-                    
+
                 world_rooms = data["world_rooms"]
 
                 for key, room in self.world.rooms.items():
@@ -349,20 +356,20 @@ class GameEngine:
                         data_room = world_rooms[key]
 
                         room.items.clear()
-                        
+
                         for data_item in data_room["items"]:
                             item = Item(*list(data_item.values()))
                             room.add_item(item)
-                            
+
                         for data_monster in data_room["monsters"]:
                             monster = Monster(*list(data_monster.values())[:3])
                             monster.health = data_monster["health"]
                             monster.heal = data_monster["heal"]
                             monster.berserk = data_monster["berserk"]
                             room.add_monster(monster)
-                            
+
                         room.locked_exit = data_room["locked_exit"]
-                            
+
                 self.view.show_load_screen(self.player.name)
                 self.view.show_current_room(self.player.current_room)
                 self.loop_game()

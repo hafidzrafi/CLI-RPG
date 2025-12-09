@@ -114,13 +114,14 @@ class Player(Creature):
 
     def to_dict(self):
         return {
-            "name" : self.name,
-            "max_hp" : self.max_hp,
-            "damage" : self.damage,
-            "health" : self.health,
-            "room" : self.current_room.name if self.current_room else None,
-            "inventory" : [item.to_dict() for item in self.inventory.list_item()]
+            "name": self.name,
+            "max_hp": self.max_hp,
+            "damage": self.damage,
+            "health": self.health,
+            "room": self.current_room.name if self.current_room else None,
+            "inventory": [item.to_dict() for item in self.inventory.list_item()],
         }
+
 
 class Monster(Creature):
     def __init__(self, name, max_hp, damage):
@@ -196,10 +197,10 @@ class Monster(Creature):
 
     def to_dict(self):
         return {
-            "name" : self.name,
-            "max_hp" : self.max_hp,
-            "damage" : self.damage,
-            "health" : self.health,
-            "heal" : self.heal,
-            "berserk" : self.berserk,
+            "name": self.name,
+            "max_hp": self.max_hp,
+            "damage": self.damage,
+            "health": self.health,
+            "heal": self.heal,
+            "berserk": self.berserk,
         }

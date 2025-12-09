@@ -10,14 +10,12 @@ class Item:
         return f"{self.name}"
 
     def to_dict(self):
-        return {
-            "name" : self.name,
-            "description" : self.description
-        }
+        return {"name": self.name, "description": self.description}
 
     @classmethod
     def from_dict(cls, data):
         return cls(*list(data.values()))
+
 
 class Inventory:
     def __init__(self):
