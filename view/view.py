@@ -173,8 +173,6 @@ class ConsoleView:
             "- use potion      : Use a potion and heal yourself\n"
             "- look            : Inspect the room\n"
             "- inventory       : Check bag\n"
-            "- save            : Save game\n"
-            "- load            : Load game\n"
             "- exit            : Quit game"
         )
 
