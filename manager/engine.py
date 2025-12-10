@@ -1,6 +1,6 @@
 from view import ConsoleView
 from models import World, Item, Player, Monster
-from config import PLAYER, DB_NAME
+from config import PLAYER, MONSTERS, DB_NAME
 import json
 import os
 
@@ -118,6 +118,7 @@ class GameEngine:
                 self.is_running = False
 
             elif last_message == "end":
+                os.remove(DB_NAME)
                 self.view.show_end_game(self.player.name)
                 self.is_running = False
 
@@ -281,7 +282,7 @@ class GameEngine:
             self.view.wait(2)
 
             if monster.health <= 0:
-                if monster.name == "DRAGON":
+                if monster.name == MONSTERS["DRAGON"]["NAME"]:
                     return "end"
                 gift_health, gift_damage = self.gift_monster(monster)
                 self.view.show_victory_screen(
@@ -297,8 +298,8 @@ class GameEngine:
                     command = self.view.get_player_command(question)
                     if command == "flee":
                         return "flee"
-                    elif command != "fight":
-                        continue
+                    elif command == "fight":
+                        break
 
             message, message_status = monster.act(player)
             self.view.show_combat_screen(
