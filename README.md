@@ -1,4 +1,4 @@
-# ⚔️ Murim World: CLI RPG
+# ⚔️ Murim World CLI RPG
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue?style=for-the-badge&logo=python)
 ![Code Style](https://img.shields.io/badge/Code%20Style-Black-black?style=for-the-badge)
