@@ -29,7 +29,7 @@ The project is structured using the **Model-View-Controller (MVC)** pattern to e
 ├── manager/            # CONTROLLER
 │   └── engine.py       # Game loop, combat logic, save/load handler
 ├── models/             # MODEL
-│   ├── creatures.py    # Player & Monster classes (Inheritance/Polymorphism)
+│   ├── creatures.py    # Player & Monster classes
 │   ├── items.py        # Item & Inventory logic
 │   └── world.py        # Room graph & navigation logic
 └── view/               # VIEW
