@@ -13,11 +13,11 @@
 This project was developed to demonstrate mastery of **Object-Oriented Programming (OOP)** and **Software Architecture** patterns in Python without relying on external game libraries.
 
 ### Key Features
-* ** Pure Python:** Built using only standard libraries (`os`, `json`, `time`, `shutil`).
-* ** MVC Architecture:** Clean separation of concerns between Logic (`models`), UI (`view`), and Game Flow (`manager`).
-* ** Persistence System:** Full Save/Load functionality using JSON serialization/deserialization.
-* ** Monster AI:** Enemies act based on health states (Berserk mode, Self-Healing).
-* ** Puzzle Elements:** Locked room mechanics requiring specific keys found in the world.
+* **Pure Python:** Built using only standard libraries (`os`, `json`, `time`, `shutil`).
+* **MVC Architecture:** Clean separation of concerns between Logic (`models`), UI (`view`), and Game Flow (`manager`).
+* **Persistence System:** Full Save/Load functionality using JSON serialization/deserialization.
+* **Monster AI:** Enemies act based on health states (Berserk mode, Self-Healing).
+* **Puzzle Elements:** Locked room mechanics requiring specific keys found in the world.
 
 ## ⚙️ Architecture
 
